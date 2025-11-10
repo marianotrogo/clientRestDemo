@@ -19,7 +19,7 @@ export default function Dashboard() {
   const [digitalMethod, setDigitalMethod] = useState('TRANSFERENCIA');
 
 
-  
+
   // Cancelados
   const [openCanceledModal, setOpenCanceledModal] = useState(false)
   const [cancelDetail, setCancelDetail] = useState(null)
@@ -157,16 +157,16 @@ export default function Dashboard() {
 
       // Enviar al backend
       const body = { action: "cobrar", payments };
-  
+
       await api.patch(`/orders/${selectedOrder._id}/status`, body);
 
       // Imprimir ticket si corresponde
       if (print) {
-      setTicketData({
-        ...selectedOrder,
-        paymentMethod: useCredit ? "CUENTA_CORRIENTE" : payments.map(p => p.method).join(" + ")
-      });
-    }
+        setTicketData({
+          ...selectedOrder,
+          paymentMethod: useCredit ? "CUENTA_CORRIENTE" : payments.map(p => p.method).join(" + ")
+        });
+      }
 
       // Reset de estados
       setSelectedOrder(null);
@@ -182,7 +182,7 @@ export default function Dashboard() {
       console.log("Pago registrado correctamente");
     } catch (error) {
       console.error("Error al confirmar pago:", error);
-      
+
       if (error?.response) {
         console.error("error.response.data:", error.response.data);
       }
@@ -279,13 +279,25 @@ export default function Dashboard() {
                   <div>
                     <p className="font-medium">Pedido #{order.number}</p>
                     <p className="text-sm text-gray-500">{order.customerName}</p>
-                    {order.table || order.address ? <p className="text-sm text-gray-400">{order.table ? `Mesa: ${order.table}` : `Dirección: ${order.address}`}</p> : null}
+                    {order.table || order.address ? (
+                      <p className="text-sm text-gray-400">
+                        {order.table ? `Mesa: ${order.table}` : `Dirección: ${order.address}`}
+                      </p>
+                    ) : null}
                     <p className="text-sm font-semibold text-gray-700">Total: ${order.total}</p>
                   </div>
-                  <Button size="sm" onClick={() => handleCobrar(order)}>Cobrar</Button>
+
+                  {/* Botones */}
+                  <div className="flex gap-2">
+                    <Button size="sm" onClick={() => handleCobrar(order)}>Cobrar</Button>
+                    <Button size="sm" variant="destructive" onClick={() => handleCancelar(order)}>X</Button>
+                  </div>
                 </div>
+
                 <ul className="ml-4 mt-1 text-sm text-gray-600 list-disc">
-                  {order.items?.map((item, idx) => (<li key={idx}>{item.qty} x {item.name} — ${item.total}</li>))}
+                  {order.items?.map((item, idx) => (
+                    <li key={idx}>{item.qty} x {item.name} — ${item.total}</li>
+                  ))}
                 </ul>
               </div>
             ))}
