@@ -44,7 +44,7 @@ function Nav() {
       <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-14">
         {/* Logo o título */}
         <Link to="/" className="font-semibold text-gray-800">
-          PIPI CUCU
+          RestoDemo
         </Link>
 
         {/* Desktop menu */}
