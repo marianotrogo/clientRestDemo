@@ -96,7 +96,7 @@ function AppContent() {
 
   useEffect(()=>{
     dispatch(showLoader('Iniciando Servidor...'))
-    fetch(`${import.meta.env.VITE_API_URL || 'https://serverrest.onrender.com'}/api/healt`)
+    fetch(`${import.meta.env.VITE_API_URL || 'https://serverrest.onrender.com'}/api/health`)
    .then(()=> dispatch(hideLoader()))
    .catch(()=> dispatch(hideLoader()))
   },[dispatch])

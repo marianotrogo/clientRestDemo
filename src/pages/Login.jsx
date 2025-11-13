@@ -9,7 +9,7 @@ export default function Login() {
     const dispatch = useDispatch();
     const { user, loading, error, token } = useSelector(s => s.auth);
 
-    const [email, setEmail] = useState('admin@admin.com');
+    const [email, setEmail] = useState('admin@demo.com');
     const [password, setPassword] = useState('admin123');
 
     useEffect(() => {
